@@ -13,9 +13,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  // React dev server URL
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(
+            "http://localhost:5173",  // React dev server URL
+            "https://polite-beach-0f5003a00.6.azurestaticapps.net"  // Azure frontend URL
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
     });
 });
 
