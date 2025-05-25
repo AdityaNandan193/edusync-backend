@@ -13,7 +13,7 @@ variables:
   buildConfiguration: 'Release' # Standard build configuration
   # --- Azure App Service Details ---
   # Replace with the exact name of your Azure App Service
-  azureAppName: '<edusync-backend>' # <-- Replace with your App Service name (e.g., 'edusync-backend-api')
+  azureAppName: 'edusync-backend' # <-- Replace with your App Service name (e.g., 'edusync-backend-api')
   # ---------------------------------
 
 # Define the steps (tasks) for the pipeline
