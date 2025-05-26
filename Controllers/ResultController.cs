@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using YourProjectNamespace.Services;
 
 namespace YourProjectNamespace.Controllers
 {
@@ -17,11 +18,13 @@ namespace YourProjectNamespace.Controllers
     {
         private readonly EduSyncDbContext _context;
         private readonly ILogger<ResultController> _logger;
+        private readonly EventHubService _eventHubService;
 
-        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger)
+        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger, EventHubService eventHubService)
         {
             _context = context;
             _logger = logger;
+            _eventHubService = eventHubService;
         }
 
         // POST: api/Result
@@ -32,12 +35,12 @@ namespace YourProjectNamespace.Controllers
                 return BadRequest(ModelState);
 
             var assessmentExists = await _context.Assessments.AnyAsync(a => a.AssessmentId == dto.AssessmentId);
-            var userExists = await _context.Users.AnyAsync(u => u.UserId == dto.UserId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.UserId);
 
             if (!assessmentExists)
                 return NotFound(new { message = "Assessment not found." });
 
-            if (!userExists)
+            if (user == null)
                 return NotFound(new { message = "User not found." });
 
             var result = new Result
@@ -51,6 +54,15 @@ namespace YourProjectNamespace.Controllers
 
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
+
+            // Send event to Event Hub
+            await _eventHubService.SendResultEventAsync(new {
+                resultId = result.ResultId,
+                userName = user.Name,
+                assessmentId = result.AssessmentId,
+                score = result.Score,
+                attemptDate = result.AttemptDate
+            });
 
             return CreatedAtAction(nameof(GetResultById), new { id = result.ResultId }, result);
         }
@@ -84,6 +96,10 @@ namespace YourProjectNamespace.Controllers
                     score++;
             }
 
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.UserId);
+            if (user == null)
+                return NotFound("User not found.");
+
             var result = new Result
             {
                 ResultId = Guid.NewGuid(),
@@ -95,6 +111,15 @@ namespace YourProjectNamespace.Controllers
 
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
+
+            // Send event to Event Hub
+            await _eventHubService.SendResultEventAsync(new {
+                resultId = result.ResultId,
+                userName = user.Name,
+                assessmentId = result.AssessmentId,
+                score = result.Score,
+                attemptDate = result.AttemptDate
+            });
 
             return Ok(new { score, total = questions.Count });
         }
