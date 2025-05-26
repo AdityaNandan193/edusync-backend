@@ -10,7 +10,6 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  solution: 'edusync-backend/edusync-backend.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   azureSubscription: 'YOUR_AZURE_SUBSCRIPTION'
@@ -24,35 +23,17 @@ steps:
     packageType: 'sdk'
     version: '8.x'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Restore NuGet packages'
-  inputs:
-    command: 'restore'
-    projects: '$(solution)'
-    feedsToUse: 'select'
+- script: dotnet restore edusync-backend/edusync-backend.csproj
+  displayName: 'Restore Dependencies'
 
-- task: DotNetCoreCLI@2
+- script: dotnet build edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration)
   displayName: 'Build'
-  inputs:
-    command: 'build'
-    projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
+- script: dotnet test edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration) --no-build
   displayName: 'Test'
-  inputs:
-    command: 'test'
-    projects: 'edusync-backend/**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
-    publishTestResults: true
 
-- task: DotNetCoreCLI@2
+- script: dotnet publish edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish'
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
 
 - task: AzureWebApp@1
   displayName: 'Deploy to Azure Web App'
