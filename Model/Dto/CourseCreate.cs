@@ -1,18 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EduSyncAPI.Model;
 
-namespace edusync_api.Model.Dto
+namespace EduSyncAPI.Dto
 {
     public class CourseCreateDto
     {
-        [Required(ErrorMessage = "Title is required")]
-        public string Title { get; set; }
-
-        [Required(ErrorMessage = "Description is required")]
-        public string Description { get; set; }
-
-        [Required(ErrorMessage = "Instructor ID is required")]
-        public Guid InstructorId { get; set; }
-
-        public string MediaUrl { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public Guid InstructorId { get; set; }  // FK to User
+        public string MediaUrl { get; set; } = string.Empty;
+        
     }
 }

@@ -2,32 +2,27 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace edusync_api.Model
+namespace EduSyncAPI.Model
 {
     public class Course
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid CourseId { get; set; } = Guid.NewGuid();
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(150)]
         public string Title { get; set; } = string.Empty;
 
-        [Required]
+        [MaxLength(2000)]
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        public Guid InstructorId { get; set; }
+
+        [Url]
         public string MediaUrl { get; set; } = string.Empty;
 
-        [Required]
-        public int InstructorId { get; set; }
-
         [ForeignKey("InstructorId")]
-        public User Instructor { get; set; } = null!;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
-        public ICollection<Assessment> Assessments { get; set; } = new List<Assessment>();
-        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
+        public virtual User Instructor { get; set; }
     }
 }

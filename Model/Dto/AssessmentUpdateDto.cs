@@ -1,15 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace edusync_api.Model.Dto
+﻿namespace EduSyncAPI.Dto
 {
     public class AssessmentUpdateDto
     {
-        [Required(ErrorMessage = "Title is required")]
-        public string Title { get; set; }
-
-        [Required(ErrorMessage = "Questions are required")]
-        public string Questions { get; set; }
-
+        public string Title { get; set; } = string.Empty;
+        public string Questions { get; set; } = string.Empty;
         public int MaxScore { get; set; }
     }
 }

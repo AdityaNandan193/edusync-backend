@@ -1,41 +1,30 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace edusync_api.Model
+namespace EduSyncAPI.Model
 {
     public class User
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid UserId { get; set; } = Guid.NewGuid();
 
-        [Required]
-        [EmailAddress]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Name is required.")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address.")]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Role is required.")]
+        [RegularExpression("Student|Instructor", ErrorMessage = "Role must be either 'Student' or 'Instructor'.")]
+        public string Role { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required.")]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters.")]
         public string PasswordHash { get; set; } = string.Empty;
 
-        [Required]
-        [MaxLength(50)]
-        public string FirstName { get; set; } = string.Empty;
+        public string? PasswordResetToken { get; set; }
+        public DateTime? PasswordResetTokenExpiry { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string LastName { get; set; } = string.Empty;
-
-        [Required]
-        public UserRole Role { get; set; }
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedAt { get; set; }
-        public string? ResetPasswordToken { get; set; }
-        public DateTime? ResetPasswordTokenExpiry { get; set; }
-    }
-
-    public enum UserRole
-    {
-        Student,
-        Instructor,
-        Admin
     }
 }

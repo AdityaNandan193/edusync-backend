@@ -1,50 +1,28 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json;
 
-namespace edusync_api.Model
+namespace EduSyncAPI.Model
 {
     public class Assessment
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid AssessmentId { get; set; } = Guid.NewGuid();
 
         [Required]
-        [MaxLength(100)]
-        public string Title { get; set; } = string.Empty;
+        public Guid CourseId { get; set; }  // FK to Course
+
+        [ForeignKey("CourseId")]
+        public Course Course { get; set; }  // Navigation property
 
         [Required]
-        public string Questions { get; set; } = string.Empty;
+        [StringLength(200)]
+        public string Title { get; set; }
+
+        [Required]
+        public string Questions { get; set; }  // JSON string of quiz questions
 
         [Required]
         public int MaxScore { get; set; }
-
-        [Required]
-        public int CourseId { get; set; }
-
-        [ForeignKey("CourseId")]
-        public Course Course { get; set; } = null!;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-
-        public ICollection<Result> Results { get; set; } = new List<Result>();
-
-        public List<McqQuestion> GetQuestions()
-        {
-            return JsonSerializer.Deserialize<List<McqQuestion>>(Questions) ?? new List<McqQuestion>();
-        }
-
-        public void SetQuestions(List<McqQuestion> questions)
-        {
-            Questions = JsonSerializer.Serialize(questions);
-        }
-    }
-
-    public class McqQuestion
-    {
-        public string Question { get; set; } = string.Empty;
-        public List<string> Options { get; set; } = new List<string>();
-        public int CorrectIndex { get; set; }
     }
 }

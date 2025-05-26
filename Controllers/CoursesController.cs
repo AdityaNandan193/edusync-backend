@@ -1,6 +1,6 @@
-﻿using edusync_api.Data;
-using edusync_api.Dto;
-using edusync_api.Model;
+﻿using EduSyncAPI.Data;
+using EduSyncAPI.Dto;
+using EduSyncAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,15 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace edusync_api.Controllers
+namespace EduSyncAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoursesController : ControllerBase
+    public class CourseController : ControllerBase
     {
         private readonly EduSyncDbContext _context;
 
-        public CoursesController(EduSyncDbContext context)
+        public CourseController(EduSyncDbContext context)
         {
             _context = context;
         }
