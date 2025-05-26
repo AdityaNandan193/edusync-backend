@@ -19,7 +19,7 @@ namespace edusync_api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EduSyncAPI.Model.Assessment", b =>
+            modelBuilder.Entity("edusync_api.Model.Assessment", b =>
                 {
                     b.Property<Guid>("AssessmentId")
                         .ValueGeneratedOnAdd()
@@ -47,7 +47,7 @@ namespace edusync_api.Migrations
                     b.ToTable("Assessments");
                 });
 
-            modelBuilder.Entity("EduSyncAPI.Model.Course", b =>
+            modelBuilder.Entity("edusync_api.Model.Course", b =>
                 {
                     b.Property<Guid>("CourseId")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace edusync_api.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("EduSyncAPI.Model.User", b =>
+            modelBuilder.Entity("edusync_api.Model.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace edusync_api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Result", b =>
+            modelBuilder.Entity("edusync_api.Model.Result", b =>
                 {
                     b.Property<Guid>("ResultId")
                         .ValueGeneratedOnAdd()
@@ -140,9 +140,9 @@ namespace edusync_api.Migrations
                     b.ToTable("Results");
                 });
 
-            modelBuilder.Entity("EduSyncAPI.Model.Assessment", b =>
+            modelBuilder.Entity("edusync_api.Model.Assessment", b =>
                 {
-                    b.HasOne("EduSyncAPI.Model.Course", "Course")
+                    b.HasOne("edusync_api.Model.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -151,9 +151,9 @@ namespace edusync_api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("EduSyncAPI.Model.Course", b =>
+            modelBuilder.Entity("edusync_api.Model.Course", b =>
                 {
-                    b.HasOne("EduSyncAPI.Model.User", "Instructor")
+                    b.HasOne("edusync_api.Model.User", "Instructor")
                         .WithMany()
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -162,15 +162,15 @@ namespace edusync_api.Migrations
                     b.Navigation("Instructor");
                 });
 
-            modelBuilder.Entity("Result", b =>
+            modelBuilder.Entity("edusync_api.Model.Result", b =>
                 {
-                    b.HasOne("EduSyncAPI.Model.Assessment", "Assessment")
+                    b.HasOne("edusync_api.Model.Assessment", "Assessment")
                         .WithMany()
                         .HasForeignKey("AssessmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EduSyncAPI.Model.User", "User")
+                    b.HasOne("edusync_api.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
