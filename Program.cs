@@ -1,6 +1,8 @@
 using EduSyncAPI.Services; // Add this using directive
 using EduSyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
+using edusync_api.Services; // Add this using statement to access your service
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,9 @@ builder.Services.AddScoped<BlobStorageService>();
 // Add DB context
 builder.Services.AddDbContext<EduSyncDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Register the Event Hubs producer service
+builder.Services.AddSingleton<QuizEventProducerService>(); // Register as Singleton
 
 var app = builder.Build();
 

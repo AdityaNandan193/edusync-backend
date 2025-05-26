@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using edusync_api.Services;
 
 namespace YourProjectNamespace.Controllers
 {
@@ -17,11 +18,13 @@ namespace YourProjectNamespace.Controllers
     {
         private readonly EduSyncDbContext _context;
         private readonly ILogger<ResultController> _logger;
+        private readonly QuizEventProducerService _eventProducerService;
 
-        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger)
+        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger, QuizEventProducerService eventProducerService)
         {
             _context = context;
             _logger = logger;
+            _eventProducerService = eventProducerService;
         }
 
         // POST: api/Result
@@ -124,6 +127,31 @@ namespace YourProjectNamespace.Controllers
                 return NotFound(new { message = "Result not found." });
 
             return Ok(result);
+        }
+
+        [HttpPost("submit-quiz")]
+        public async Task<IActionResult> SubmitQuiz([FromBody] QuizSubmissionModel submission)
+        {
+            // ... your existing logic to process the submission, calculate score, save to DB ...
+
+            var quizAttemptData = new QuizAttemptData
+            {
+                AttemptId = Guid.NewGuid(),
+                AssessmentId = submission.AssessmentId,
+                UserId = GetCurrentUserId(),
+                Score = calculatedScore,
+                AttemptDate = DateTime.UtcNow
+            };
+
+            await _eventProducerService.SendQuizAttemptEventAsync(quizAttemptData);
+
+            // ... return result (e.g., OK, BadRequest) ...
+        }
+
+        private Guid GetCurrentUserId()
+        {
+            // Implement logic to get the logged-in user's ID
+            throw new NotImplementedException();
         }
     }
 }
