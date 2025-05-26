@@ -1,7 +1,7 @@
-﻿using EduSyncAPI.Model;
+﻿using edusync_api.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace EduSyncAPI.Data
+namespace edusync_api.Data
 {
     public class EduSyncDbContext : DbContext
     {

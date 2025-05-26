@@ -1,5 +1,5 @@
 using edusync_api.Services;
-using edusync_api.Data;
+using EduSyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using EduSyncAPI.Services; // Add this using directive
