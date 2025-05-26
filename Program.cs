@@ -8,16 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Add CORS policy
+// Add CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:5173",  // React dev server URL
+            "https://polite-beach-0f5003a00.6.azurestaticapps.net"  // Azure frontend URL
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -43,7 +45,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Use the CORS policy before authorization and routing
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 
