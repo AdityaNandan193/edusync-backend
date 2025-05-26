@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("edusync_api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a928061fb047e5c1d147879d96a860b0e0e1445a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28aecdc429f96d6f5b28197aeeace2c983bc5d20")]
 [assembly: System.Reflection.AssemblyProductAttribute("edusync_api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("edusync_api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

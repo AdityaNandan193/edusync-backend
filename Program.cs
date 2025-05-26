@@ -1,4 +1,4 @@
-using EduSyncAPI.Services;
+using EduSyncAPI.Services; // Add this using directive
 using EduSyncAPI.Data;
 using Microsoft.EntityFrameworkCore;
 
