@@ -1,8 +1,9 @@
-using EduSyncAPI.Services; // Add this using directive
-using EduSyncAPI.Data;
+using edusync_api.Services;
+using edusync_api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
-using edusync_api.Services; // Add this using statement to access your service
+using EduSyncAPI.Services; // Add this using directive
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 

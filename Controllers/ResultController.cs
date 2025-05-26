@@ -9,8 +9,9 @@ using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using edusync_api.Services;
+using edusync_api.Model;
 
-namespace YourProjectNamespace.Controllers
+namespace edusync_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
