@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Add CORS
+// Add CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -27,7 +27,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddScoped<BlobStorageService>();
-builder.Services.AddSingleton<EventHubService>();
 
 // Add DB context
 builder.Services.AddDbContext<EduSyncDbContext>(options =>
