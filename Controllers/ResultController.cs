@@ -1,5 +1,6 @@
 ﻿using EduSyncAPI.Data;
 using EduSyncAPI.Model;
+using EduSyncAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,9 +9,8 @@ using System.Collections.Generic;
 using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using YourProjectNamespace.Services;
 
-namespace YourProjectNamespace.Controllers
+namespace EduSyncAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

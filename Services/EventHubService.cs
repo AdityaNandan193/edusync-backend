@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YourProjectNamespace.Services
+namespace EduSyncAPI.Services
 {
     public class EventHubService
     {
