@@ -15,6 +15,7 @@ variables:
   azureSubscription: 'YOUR_AZURE_SUBSCRIPTION'
   appName: 'edusync-backend'
   resourceGroup: 'edusync-rg'
+  projectPath: 'edusync-backend/edusync-backend.csproj'
 
 steps:
 - task: UseDotNet@2
@@ -23,21 +24,17 @@ steps:
     packageType: 'sdk'
     version: '8.x'
 
-- script: dotnet restore
+- script: dotnet restore "$(projectPath)"
   displayName: 'Restore Dependencies'
-  workingDirectory: 'edusync-backend'
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build "$(projectPath)" --configuration $(buildConfiguration)
   displayName: 'Build'
-  workingDirectory: 'edusync-backend'
 
-- script: dotnet test --configuration $(buildConfiguration) --no-build
+- script: dotnet test "$(projectPath)" --configuration $(buildConfiguration) --no-build
   displayName: 'Test'
-  workingDirectory: 'edusync-backend'
 
-- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish "$(projectPath)" --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish'
-  workingDirectory: 'edusync-backend'
 
 - task: AzureWebApp@1
   displayName: 'Deploy to Azure Web App'
