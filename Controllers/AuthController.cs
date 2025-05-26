@@ -1,14 +1,13 @@
-﻿using EduSyncAPI.Data;
-using edusync_api.Model.Dto;
-using EduSyncAPI.Dto;
-using EduSyncAPI.Model;
+﻿using edusync_api.Data;
+using edusync_api.Dto;
+using edusync_api.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using EduSyncAPI.Services;
 using System.Text;
 
-namespace EduSync.API.Controllers
+namespace edusync_api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -17,10 +16,6 @@ namespace EduSync.API.Controllers
         private readonly EmailService _emailService;
         private readonly EduSyncDbContext _context;
 
-        //public AuthController(EduSyncDbContext context)
-        //{
-        //    _context = context;
-        //}
         public AuthController(EmailService emailService, EduSyncDbContext context)
         {
             _emailService = emailService;
@@ -39,9 +34,7 @@ namespace EduSync.API.Controllers
                 Name = userDto.Name,
                 Email = userDto.Email,
                 Role = userDto.Role,
-                //PasswordHash = ComputeSha256Hash(userDto.PasswordHash)
-               PasswordHash = ComputeSha256Hash(userDto.Password)
-
+                PasswordHash = ComputeSha256Hash(userDto.Password)
             };
 
             _context.Users.Add(user);
@@ -66,7 +59,6 @@ namespace EduSync.API.Controllers
                 role = user.Role
             });
         }
-        // In Controllers/AuthController.cs
 
         [HttpPost("forget-password")]
         public IActionResult ForgetPassword([FromBody] ForgetPasswordDto dto)

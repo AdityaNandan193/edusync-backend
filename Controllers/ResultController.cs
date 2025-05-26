@@ -1,11 +1,11 @@
-﻿using EduSyncAPI.Data;
-using EduSyncAPI.Model;
+﻿using edusync_api.Data;
+using edusync_api.Dto;
+using edusync_api.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using edusync_api.Services;
