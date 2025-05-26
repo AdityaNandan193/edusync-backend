@@ -1,17 +1,24 @@
-﻿using EduSyncAPI.Model;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-public class Result
+namespace edusync_api.Model
 {
-    public Guid ResultId { get; set; } = Guid.NewGuid();
+    public class Result
+    {
+        [Key]
+        public Guid ResultId { get; set; }
 
-    public Guid AssessmentId { get; set; }
-    public Assessment Assessment { get; set; }
+        [Required]
+        public Guid AssessmentId { get; set; }
 
-    public Guid UserId { get; set; }
-    public User User { get; set; }
+        [Required]
+        public Guid UserId { get; set; }
 
-    public int Score { get; set; }
+        public int Score { get; set; }
 
-    public DateTime AttemptDate { get; set; } = DateTime.UtcNow;
+        public DateTime AttemptDate { get; set; }
+
+        public Assessment? Assessment { get; set; }
+        public User? User { get; set; }
+    }
 }

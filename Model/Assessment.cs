@@ -2,27 +2,28 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EduSyncAPI.Model
+namespace edusync_api.Model
 {
     public class Assessment
     {
         [Key]
         public Guid AssessmentId { get; set; } = Guid.NewGuid();
 
-        [Required]
-        public Guid CourseId { get; set; }  // FK to Course
+        [Required(ErrorMessage = "Title is required.")]
+        public string Title { get; set; } = string.Empty;
 
-        [ForeignKey("CourseId")]
-        public Course Course { get; set; }  // Navigation property
+        [Required(ErrorMessage = "Description is required.")]
+        public string Description { get; set; } = string.Empty;
 
-        [Required]
-        [StringLength(200)]
-        public string Title { get; set; }
+        [Required(ErrorMessage = "Course ID is required.")]
+        public Guid CourseId { get; set; }
 
-        [Required]
-        public string Questions { get; set; }  // JSON string of quiz questions
+        public Course? Course { get; set; }
 
-        [Required]
-        public int MaxScore { get; set; }
+        [Required(ErrorMessage = "Questions are required.")]
+        public string Questions { get; set; } = string.Empty;
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
     }
 }

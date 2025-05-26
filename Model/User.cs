@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EduSyncAPI.Model
+namespace edusync_api.Model
 {
     public class User
     {
