@@ -6,27 +6,28 @@ namespace edusync_api.Model
 {
     public class Course
     {
-        [Key]
-        public Guid CourseId { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Title is required.")]
-        [MaxLength(150)]
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Description is required.")]
-        [MaxLength(2000)]
+        [Required]
         public string Description { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Instructor ID is required.")]
-        public Guid InstructorId { get; set; }
-
-        [Url]
+        [Required]
         public string MediaUrl { get; set; } = string.Empty;
 
+        [Required]
+        public int InstructorId { get; set; }
+
         [ForeignKey("InstructorId")]
-        public virtual User? Instructor { get; set; }
+        public User Instructor { get; set; } = null!;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        public ICollection<Assessment> Assessments { get; set; } = new List<Assessment>();
+        public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
     }
 }

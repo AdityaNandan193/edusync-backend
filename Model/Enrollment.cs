@@ -1,18 +1,17 @@
-﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace edusync_api.Model
 {
-    public class Result
+    public class Enrollment
     {
         public int Id { get; set; }
 
         [Required]
-        public int AssessmentId { get; set; }
+        public int CourseId { get; set; }
 
-        [ForeignKey("AssessmentId")]
-        public Assessment Assessment { get; set; } = null!;
+        [ForeignKey("CourseId")]
+        public Course Course { get; set; } = null!;
 
         [Required]
         public int UserId { get; set; }
@@ -21,10 +20,6 @@ namespace edusync_api.Model
         public User User { get; set; } = null!;
 
         [Required]
-        [Range(0, int.MaxValue)]
-        public int Score { get; set; }
-
-        [Required]
-        public DateTime AttemptDate { get; set; } = DateTime.UtcNow;
+        public DateTime EnrollmentDate { get; set; } = DateTime.UtcNow;
     }
-}
+} 
