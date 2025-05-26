@@ -23,17 +23,21 @@ steps:
     packageType: 'sdk'
     version: '8.x'
 
-- script: dotnet restore edusync-backend/edusync-backend.csproj
+- script: dotnet restore
   displayName: 'Restore Dependencies'
+  workingDirectory: 'edusync-backend'
 
-- script: dotnet build edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration)
   displayName: 'Build'
+  workingDirectory: 'edusync-backend'
 
-- script: dotnet test edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration) --no-build
+- script: dotnet test --configuration $(buildConfiguration) --no-build
   displayName: 'Test'
+  workingDirectory: 'edusync-backend'
 
-- script: dotnet publish edusync-backend/edusync-backend.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish'
+  workingDirectory: 'edusync-backend'
 
 - task: AzureWebApp@1
   displayName: 'Deploy to Azure Web App'
