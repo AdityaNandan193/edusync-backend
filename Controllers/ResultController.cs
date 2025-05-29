@@ -130,5 +130,12 @@ namespace YourProjectNamespace.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("test-eventhub")]
+        public async Task<IActionResult> TestEventHub()
+        {
+            await _eventHubService.SendEventAsync("Hello from test endpoint!", "TestEvent");
+            return Ok("Test event sent to Event Hub.");
+        }
     }
 }
