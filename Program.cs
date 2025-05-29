@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
+Console.WriteLine("=== EduSync backend started! ===");
+
 // Add services to the container.
 
 builder.Services.AddControllers();

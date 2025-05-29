@@ -31,6 +31,7 @@ namespace YourProjectNamespace.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateResult(ResultCreateDto dto)
         {
+            _logger.LogWarning("CreateResult action called!");
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
