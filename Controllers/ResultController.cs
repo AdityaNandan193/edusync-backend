@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using EduSyncAPI.Dto;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using EduSyncAPI.Services;
 
 namespace YourProjectNamespace.Controllers
 {
@@ -17,11 +18,13 @@ namespace YourProjectNamespace.Controllers
     {
         private readonly EduSyncDbContext _context;
         private readonly ILogger<ResultController> _logger;
+        private readonly EventHubService _eventHubService;
 
-        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger)
+        public ResultController(EduSyncDbContext context, ILogger<ResultController> logger, EventHubService eventHubService)
         {
             _context = context;
             _logger = logger;
+            _eventHubService = eventHubService;
         }
 
         // POST: api/Result
@@ -51,6 +54,7 @@ namespace YourProjectNamespace.Controllers
 
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
+            await _eventHubService.SendEventAsync(result, "ResultCreated");
 
             return CreatedAtAction(nameof(GetResultById), new { id = result.ResultId }, result);
         }

@@ -27,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddScoped<BlobStorageService>();
+builder.Services.AddSingleton<EventHubService>();
 
 // Add DB context
 builder.Services.AddDbContext<EduSyncDbContext>(options =>
