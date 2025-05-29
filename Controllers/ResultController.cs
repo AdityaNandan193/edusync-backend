@@ -100,6 +100,7 @@ namespace YourProjectNamespace.Controllers
 
             _context.Results.Add(result);
             await _context.SaveChangesAsync();
+            await _eventHubService.SendEventAsync(result, "AssessmentAttempted");
 
             return Ok(new { score, total = questions.Count });
         }
