@@ -21,6 +21,7 @@ namespace EduSyncAPI.Services
 
         public async Task SendEventAsync<T>(T eventData, string eventType)
         {
+            _logger.LogWarning("SendEventAsync called for event type: " + eventType);
             try
             {
                 // Create the event data
@@ -35,9 +36,11 @@ namespace EduSyncAPI.Services
                 // Add the event to the batch
                 if (!eventDataBatch.TryAdd(eventDataItem))
                 {
+                    _logger.LogError("Event is too large for the batch");
                     throw new Exception("Event is too large for the batch");
                 }
 
+                _logger.LogWarning("About to send event to Event Hub...");
                 // Send the batch
                 await _producerClient.SendAsync(eventDataBatch);
                 _logger.LogInformation($"Event of type {eventType} sent successfully");
