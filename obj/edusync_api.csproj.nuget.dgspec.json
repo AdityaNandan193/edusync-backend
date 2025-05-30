@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-frontend\\edusync-backend\\edusync_api.csproj": {}
+    "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-backend\\edusync_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-frontend\\edusync-backend\\edusync_api.csproj": {
+    "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-backend\\edusync_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-frontend\\edusync-backend\\edusync_api.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-backend\\edusync_api.csproj",
         "projectName": "edusync_api",
-        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-frontend\\edusync-backend\\edusync_api.csproj",
+        "projectPath": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-backend\\edusync_api.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-frontend\\edusync-backend\\obj\\",
+        "outputPath": "C:\\Users\\HP\\OneDrive\\Desktop\\Edusyn Project\\edusync-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -57,6 +57,10 @@
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.24.0, )"
+            },
+            "Microsoft.ApplicationInsights.AspNetCore": {
+              "target": "Package",
+              "version": "[2.23.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
