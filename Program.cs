@@ -33,6 +33,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<EmailService>();
 builder.Services.AddScoped<BlobStorageService>();
 builder.Services.AddSingleton<EventHubService>();
+builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["ApplicationInsights:InstrumentationKey"]);
+// Add DB context
 
 // Add DB context
 builder.Services.AddDbContext<EduSyncDbContext>(options =>
